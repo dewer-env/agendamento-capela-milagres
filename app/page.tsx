@@ -82,7 +82,7 @@ export default function Home() {
         className="hidden lg:grid"
         style={{
           height: '100vh',
-          gridTemplateColumns: '200px 1fr',
+          gridTemplateColumns: '230px 1fr',
           gap: '1.5rem',
           padding: '1.5rem',
         }}

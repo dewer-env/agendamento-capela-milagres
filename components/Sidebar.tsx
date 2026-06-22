@@ -38,7 +38,7 @@ const card: React.CSSProperties = {
   background: 'var(--bg-card)',
   border: '0.5px solid var(--border-default)',
   borderRadius: 12,
-  padding: '1.25rem',
+  padding: '0.875rem',
 }
 
 const sectionLabel: React.CSSProperties = {
@@ -47,7 +47,7 @@ const sectionLabel: React.CSSProperties = {
   textTransform: 'uppercase',
   letterSpacing: '0.06em',
   color: 'var(--text-secondary)',
-  marginBottom: '0.75rem',
+  marginBottom: '0.5rem',
 }
 
 export default function Sidebar({
@@ -73,11 +73,11 @@ export default function Sidebar({
 
   return (
     <aside
-      className="hidden lg:flex flex-col overflow-y-auto"
-      style={{ gap: '1rem', paddingTop: '0.5rem', paddingBottom: '1.5rem' }}
+      className="hidden lg:flex flex-col overflow-hidden"
+      style={{ gap: '0.625rem', paddingTop: '0.25rem', paddingBottom: '1rem' }}
     >
       {/* Logo */}
-      <div className="flex justify-center" style={{ paddingTop: '0.5rem' }}>
+      <div className="flex justify-center" style={{ paddingTop: '0.25rem' }}>
         <img
           src="/capela.png"
           alt="Capela dos Milagres"
