@@ -24,7 +24,6 @@ interface MainCalendarProps {
   error: string | null
   onPrevMonth: () => void
   onNextMonth: () => void
-  onGoToday: () => void
   onDateSelect: (date: string) => void
   onRefresh: () => void
 }
@@ -40,7 +39,6 @@ export default function MainCalendar({
   error,
   onPrevMonth,
   onNextMonth,
-  onGoToday,
   onDateSelect,
   onRefresh,
 }: MainCalendarProps) {
@@ -56,32 +54,48 @@ export default function MainCalendar({
   for (let i = 0; i < calDays.length; i += 7) weeks.push(calDays.slice(i, i + 7))
 
   return (
-    <main className="flex-1 flex flex-col overflow-hidden bg-[#FAFAF8] min-h-0">
+    <main
+      className="flex-1 flex flex-col overflow-hidden min-h-0"
+      style={{ background: 'var(--bg-primary)' }}
+    >
 
       {/* Desktop-only header */}
-      <div className="hidden lg:flex items-center justify-between px-8 py-5 border-b border-[#EDE8E2] flex-shrink-0">
+      <div
+        className="hidden lg:flex items-center justify-between flex-shrink-0"
+        style={{
+          padding: '1.25rem 1.5rem',
+          background: 'var(--bg-primary)',
+          borderBottom: '0.5px solid var(--border-default)',
+        }}
+      >
         <div className="flex items-center gap-3">
-          <h2 className="font-playfair text-[32px] font-bold text-[#2C1A14] capitalize leading-none">
+          <h2 style={{ fontSize: 20, fontWeight: 500, color: 'var(--text-primary)', margin: 0, lineHeight: 1, textTransform: 'capitalize' }}>
             {format(currentMonth, 'MMMM', { locale: ptBR })}
           </h2>
-          <span className="font-playfair text-[32px] text-[#B8A89A] font-light leading-none">
+          <span style={{ fontSize: 20, fontWeight: 500, color: 'var(--text-secondary)', opacity: 0.5, lineHeight: 1 }}>
             {format(currentMonth, 'yyyy')}
           </span>
-          <div className="flex items-center gap-0.5 ml-1">
-            <button onClick={onPrevMonth} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#E9E1D3] transition-colors text-[#7D5A4A] hover:text-[#2C1A14]">
-              <ChevronLeft size={18} />
+          <div className="flex items-center gap-1 ml-1">
+            <button
+              onClick={onPrevMonth}
+              className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-[var(--bg-hover)]"
+              style={{ border: '0.5px solid var(--border-input)', color: 'var(--text-muted)' }}
+            >
+              <ChevronLeft size={16} />
             </button>
-            <button onClick={onNextMonth} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#E9E1D3] transition-colors text-[#7D5A4A] hover:text-[#2C1A14]">
-              <ChevronRight size={18} />
+            <button
+              onClick={onNextMonth}
+              className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-[var(--bg-hover)]"
+              style={{ border: '0.5px solid var(--border-input)', color: 'var(--text-muted)' }}
+            >
+              <ChevronRight size={16} />
             </button>
           </div>
-          <button onClick={onGoToday} className="ml-2 px-3 py-1.5 text-[11px] font-semibold text-[#7D5A4A] border border-[#D5C9BC] rounded-lg hover:bg-[#E9E1D3] hover:text-[#2C1A14] transition-colors">
-            Hoje
-          </button>
         </div>
         <button
           onClick={onRefresh}
-          className={`w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#E9E1D3] transition-colors text-[#B8A89A] hover:text-[#7D5A4A] ${loading ? 'animate-spin' : ''}`}
+          className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-[var(--bg-hover)] ${loading ? 'animate-spin' : ''}`}
+          style={{ color: 'var(--text-secondary)' }}
           title="Atualizar disponibilidade"
         >
           <RefreshCw size={15} />
@@ -90,17 +104,31 @@ export default function MainCalendar({
 
       {/* Error banner */}
       {error && (
-        <div className="mx-4 lg:mx-8 mt-3 px-4 py-2 bg-[#F5E8E6] border border-[#C27B6E]/30 rounded-lg text-[11px] text-[#C27B6E] flex-shrink-0">
+        <div
+          className="mx-4 mt-3 px-4 py-2 rounded-lg text-[11px] flex-shrink-0"
+          style={{
+            background: 'var(--bg-reserved)',
+            border: '0.5px solid var(--badge-bg)',
+            color: 'var(--badge-text)',
+          }}
+        >
           {error}
         </div>
       )}
 
       {/* Week-day headers */}
-      <div className="grid grid-cols-7 border-b border-[#EDE8E2] flex-shrink-0">
+      <div
+        className="grid grid-cols-7 flex-shrink-0"
+        style={{ background: 'var(--bg-card)', borderBottom: '0.5px solid var(--border-default)' }}
+      >
         {WEEK_DAYS.map((day, i) => (
-          <div key={day} className="py-2 text-center font-semibold text-[#B8A89A] uppercase tracking-widest">
-            <span className="hidden lg:inline text-[11px]">{day}</span>
-            <span className="lg:hidden text-[10px]">{WEEK_DAYS_SHORT[i]}</span>
+          <div
+            key={day}
+            className="py-2 text-center uppercase"
+            style={{ fontSize: 11, letterSpacing: '0.05em', color: 'var(--text-secondary)' }}
+          >
+            <span className="hidden lg:inline">{day}</span>
+            <span className="lg:hidden">{WEEK_DAYS_SHORT[i]}</span>
           </div>
         ))}
       </div>
@@ -109,18 +137,29 @@ export default function MainCalendar({
       {loading ? (
         <div className="flex-1 flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-8 h-8 border-2 border-[#E9E1D3] border-t-[#7D5A4A] rounded-full animate-spin" />
-            <p className="font-playfair text-[13px] text-[#B8A89A]">Carregando disponibilidade…</p>
+            <div
+              className="w-8 h-8 border-2 rounded-full animate-spin"
+              style={{ borderColor: 'var(--border-default)', borderTopColor: 'var(--text-muted)' }}
+            />
+            <p className="text-[13px]" style={{ color: 'var(--text-secondary)' }}>
+              Carregando disponibilidade…
+            </p>
           </div>
         </div>
       ) : (
         <div
           className="flex-1 overflow-hidden grid min-h-0"
-          style={{ gridTemplateRows: `repeat(${weeks.length}, minmax(44px, 1fr))` }}
+          style={{ gridTemplateRows: `repeat(${weeks.length}, minmax(72px, 1fr))` }}
         >
           {weeks.map((week, wi) => (
-            <div key={wi} className="grid grid-cols-7 border-b border-[#EDE8E2] last:border-b-0">
-              {week.map(day => {
+            <div
+              key={wi}
+              className="grid grid-cols-7"
+              style={{
+                borderBottom: wi < weeks.length - 1 ? '0.5px solid var(--border-default)' : 'none',
+              }}
+            >
+              {week.map((day, di) => {
                 const dateStr        = format(day, 'yyyy-MM-dd')
                 const isCurrentMonth = isSameMonth(day, currentMonth)
                 const isSelected     = selectedDate === dateStr
@@ -130,69 +169,117 @@ export default function MainCalendar({
                 const isPast         = isBefore(day, startOfDay(new Date()))
                 const isClickable    = isCurrentMonth && !isBooked && !isPast
 
+                let cellBg = 'var(--bg-primary)'
+                if (!isCurrentMonth)              cellBg = '#F2EFE9'
+                if (isPast && isCurrentMonth)     cellBg = 'var(--bg-card)'
+                if (isBooked)                     cellBg = 'var(--bg-reserved)'
+                if (isSelected && !isBooked)      cellBg = 'var(--bg-hover)'
+
+                const showCircle = isTodayDate || (isSelected && !isBooked)
+
                 return (
                   <div
                     key={dateStr}
                     onClick={() => isClickable && onDateSelect(dateStr)}
                     className={[
-                      'border-r border-[#EDE8E2] last:border-r-0 transition-colors duration-150',
-                      // Mobile: center content; Desktop: top-left with padding for pills
-                      'flex flex-col items-center justify-center p-1',
-                      'lg:items-start lg:justify-start lg:p-2',
-                      isSelected && !isBooked                    ? 'bg-[#EDE4D8]'  : '',
-                      isPast && isCurrentMonth                   ? 'bg-[#FDF0EF]'  : '',
-                      !isCurrentMonth && !isPast                 ? 'bg-[#F5F3F0]'  : '',
-                      isClickable && !isSelected ? 'hover:bg-[#F2EDE5] cursor-pointer' : '',
-                      !isClickable               ? 'cursor-default' : '',
+                      'flex flex-col transition-colors duration-150',
+                      'items-center justify-center',
+                      'lg:items-start lg:justify-start',
+                      isClickable ? 'cursor-pointer' : 'cursor-default',
                     ].join(' ')}
+                    style={{
+                      padding: 8,
+                      background: cellBg,
+                      borderRight: di < 6 ? '0.5px solid var(--border-default)' : 'none',
+                    }}
+                    onMouseEnter={e => {
+                      if (isClickable && !isSelected) e.currentTarget.style.background = 'var(--bg-hover)'
+                    }}
+                    onMouseLeave={e => {
+                      if (isClickable && !isSelected) e.currentTarget.style.background = cellBg
+                    }}
                   >
-                    {/* Day number — slightly larger on mobile for easier tapping */}
-                    <div className={[
-                      'flex items-center justify-center rounded-full font-medium transition-colors flex-shrink-0',
-                      'w-8 h-8 text-[14px] lg:w-7 lg:h-7 lg:text-[13px]',
-                      isTodayDate                                    ? 'bg-[#2C1A14] text-[#E9E1D3] font-bold' : '',
-                      isSelected && !isTodayDate                     ? 'bg-[#2C1A14] text-[#E9E1D3]'           : '',
-                      isPast && isCurrentMonth && !isTodayDate       ? 'text-[#D4897A]'  : '',
-                      !isCurrentMonth && !isTodayDate                ? 'text-[#D0C4BB]'  : '',
-                      isCurrentMonth && !isPast && !isTodayDate && !isSelected ? 'text-[#2C1A14]' : '',
-                    ].join(' ')}>
+                    {/* Day number */}
+                    <div
+                      className="flex items-center justify-center flex-shrink-0"
+                      style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        background: showCircle ? 'var(--accent)' : 'transparent',
+                        color: showCircle
+                          ? 'var(--accent-text)'
+                          : !isCurrentMonth
+                          ? 'var(--border-input)'
+                          : isPast
+                          ? 'var(--text-secondary)'
+                          : 'var(--text-primary)',
+                        fontSize: 13,
+                        fontWeight: 500,
+                      }}
+                    >
                       {format(day, 'd')}
                     </div>
 
-                    {/* Mobile: dot / × indicator */}
+                    {/* Mobile: indicator dot */}
                     <div className="lg:hidden mt-1 h-2 flex items-center justify-center">
-                      {isPast && isCurrentMonth && (
-                        <span className="text-[#D4897A] text-[10px] leading-none">×</span>
-                      )}
                       {isBooked && isCurrentMonth && (
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#C27B6E]" />
+                        <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--badge-bg)' }} />
                       )}
                       {isSelected && !isBooked && isCurrentMonth && (
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#2C1A14]/40" />
+                        <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)', opacity: 0.5 }} />
                       )}
                     </div>
 
-                    {/* Desktop: full event pill */}
-                    <div className="hidden lg:flex mt-1 flex-col gap-0.5 overflow-hidden w-full">
-                      {isPast && isCurrentMonth && (
-                        <div className="flex items-center gap-1.5 px-2 py-0.5">
-                          <span className="text-[#D4897A] text-[13px] leading-none">×</span>
-                        </div>
-                      )}
+                    {/* Desktop: badge pill */}
+                    <div className="hidden lg:flex flex-col gap-0.5 overflow-hidden w-full">
                       {isBooked && (
-                        <div className="flex items-center gap-1.5 px-2 py-1 bg-[#C27B6E] rounded-md">
-                          <div className="w-1.5 h-1.5 rounded-full bg-white/70 flex-shrink-0" />
-                          <span className="text-white text-[10px] font-medium truncate leading-tight">
+                        <div
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 5,
+                            fontSize: 11,
+                            fontWeight: 500,
+                            padding: '3px 8px',
+                            borderRadius: 20,
+                            width: '100%',
+                            background: 'var(--badge-bg)',
+                            color: 'var(--badge-text)',
+                            marginTop: 6,
+                          }}
+                        >
+                          <div
+                            className="rounded-full flex-shrink-0"
+                            style={{ width: 6, height: 6, background: 'var(--badge-text)', opacity: 0.6 }}
+                          />
+                          <span className="truncate leading-tight">
                             {bookedInfo!.event || 'Reservado'}
                           </span>
                         </div>
                       )}
                       {isSelected && !isBooked && isCurrentMonth && (
-                        <div className="flex items-center gap-1.5 px-2 py-1 bg-[#2C1A14]/12 rounded-md">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#2C1A14]/60 flex-shrink-0" />
-                          <span className="text-[#2C1A14] text-[10px] font-medium truncate leading-tight">
-                            Sua seleção
-                          </span>
+                        <div
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 5,
+                            fontSize: 11,
+                            fontWeight: 500,
+                            padding: '3px 8px',
+                            borderRadius: 20,
+                            width: '100%',
+                            background: 'var(--accent)',
+                            color: 'var(--accent-text)',
+                            marginTop: 6,
+                            opacity: 0.75,
+                          }}
+                        >
+                          <div
+                            className="rounded-full flex-shrink-0"
+                            style={{ width: 6, height: 6, background: 'var(--accent-text)', opacity: 0.7 }}
+                          />
+                          <span className="truncate leading-tight">Sua seleção</span>
                         </div>
                       )}
                     </div>
