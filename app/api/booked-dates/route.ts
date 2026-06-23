@@ -14,7 +14,7 @@ export async function GET() {
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 8000)
 
-    const response = await fetch(scriptUrl, { signal: controller.signal })
+    const response = await fetch(scriptUrl, { signal: controller.signal, cache: 'no-store' })
     clearTimeout(timeout)
 
     if (!response.ok) {
