@@ -131,38 +131,61 @@ export default function Home() {
 
         {/* Mobile top bar */}
         <div
-          className="flex items-center justify-between px-4 flex-shrink-0 h-20"
+          className="flex flex-col flex-shrink-0"
           style={{
             background: 'var(--bg-card)',
             borderBottom: '0.5px solid var(--border-default)',
           }}
         >
-          <img src="/capela.png" alt="Capela dos Milagres" className="h-16 object-contain mix-blend-multiply" />
-          <div className="flex items-center gap-1">
-            <span className="text-[13px] font-semibold capitalize mr-1" style={{ color: 'var(--text-primary)' }}>
-              {format(currentMonth, 'MMM yyyy', { locale: ptBR })}
+          {/* Row 1: logo + voltar */}
+          <div className="flex items-center justify-between px-4 pt-2 pb-2">
+            <img src="/capela.png" alt="Capela dos Milagres" className="h-14 object-contain mix-blend-multiply" />
+            <a
+              href="https://capeladosmilagres.com"
+
+              className="flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:bg-[var(--bg-hover)]"
+              style={{
+                color: 'var(--text-primary)',
+                border: '0.5px solid var(--border-input)',
+                borderRadius: 8,
+                padding: '6px 10px',
+              }}
+            >
+              ← Voltar para home
+            </a>
+          </div>
+
+          {/* Separator */}
+          <div style={{ borderTop: '0.5px solid var(--border-default)' }} />
+
+          {/* Row 2: date nav */}
+          <div className="flex items-center justify-between px-4 py-2">
+            <span className="text-[13px] font-semibold capitalize" style={{ color: 'var(--text-primary)' }}>
+              {format(currentMonth, 'MMMM yyyy', { locale: ptBR })}
             </span>
-            <button
-              onClick={handlePrevMonth}
-              className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors"
-              style={{ color: 'var(--text-muted)' }}
-            >
-              <ChevronLeft size={15} />
-            </button>
-            <button
-              onClick={handleNextMonth}
-              className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors"
-              style={{ color: 'var(--text-muted)' }}
-            >
-              <ChevronRight size={15} />
-            </button>
-            <button
-              onClick={fetchBookedDates}
-              className={`w-7 h-7 flex items-center justify-center rounded-lg transition-colors ${loading ? 'animate-spin' : ''}`}
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              <RefreshCw size={13} />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handlePrevMonth}
+                className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                <ChevronLeft size={15} />
+              </button>
+              <button
+                onClick={handleNextMonth}
+                className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                <ChevronRight size={15} />
+              </button>
+              <button
+                onClick={fetchBookedDates}
+                className={`w-7 h-7 flex items-center justify-center rounded-lg transition-colors ${loading ? 'animate-spin' : ''}`}
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <RefreshCw size={13} />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -253,6 +276,7 @@ export default function Home() {
             </svg>
             {isBookingReady ? 'Demonstrar interesse' : selectedDate ? 'Preencha seus dados' : 'Selecione uma data'}
           </button>
+
         </div>
 
       </div>

@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Capela dos Milagres — Agendamento',
+  title: 'AGENDAMENTO - capelamilagres',
   description: 'Reserve seu espaço na Capela dos Milagres',
+  icons: { icon: '/favicon.png' },
 }
 
 export default function RootLayout({

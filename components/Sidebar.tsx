@@ -74,10 +74,24 @@ export default function Sidebar({
   return (
     <aside
       className="hidden lg:flex flex-col overflow-hidden"
-      style={{ gap: '0.625rem', paddingTop: '0.25rem', paddingBottom: '1rem' }}
+      style={{ gap: '0.625rem', paddingTop: 0, paddingBottom: 0 }}
     >
       {/* Logo */}
-      <div className="flex justify-center" style={{ paddingTop: '0.25rem' }}>
+      <div className="flex flex-col items-center" style={{ paddingTop: 0, gap: '0.5rem' }}>
+        <a
+          href="https://capeladosmilagres.com"
+          className="flex items-center gap-1.5 text-[12px] font-medium transition-colors hover:bg-[var(--bg-hover)]"
+          style={{
+            color: 'var(--text-primary)',
+            border: '0.5px solid var(--border-input)',
+            borderRadius: 8,
+            padding: '6px 12px',
+            width: '100%',
+            justifyContent: 'center',
+          }}
+        >
+          ← Voltar para home
+        </a>
         <img
           src="/capela.png"
           alt="Capela dos Milagres"
